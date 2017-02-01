@@ -442,27 +442,6 @@ void CheckDir(){
   }
 
 }
-/*
-void CheckEncoder(){
- if (encoderValue > lastencoderValue) {
- page ++;
- if (page > 5){
- page = 5;
- }
- 
- lastencoderValue = encoderValue;
- }
- else if (encoderValue < lastencoderValue){
- page --  ;
- if (page < 0){
- page = 0;
- }
- lastencoderValue = encoderValue;
- }
- //Serial.println(page);
- //Serial.println(encoderValue);
- }*/
-
 
 void setup()
 {
@@ -521,9 +500,9 @@ void setup()
 void loop()
 {
   //CheckDir();
-  //StoreData();
-  //PercToBar();
-  //DisplayData();
+  StoreData();
+  PercToBar();
+  DisplayData();
 }
 
 void serialEvent()
