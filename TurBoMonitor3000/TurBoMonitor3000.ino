@@ -1,25 +1,23 @@
 #include <Wire.h>
-#include <LiquidCrystal_SR_LCD3.h>
-#include <MemoryFree.h>
+#include <LCD.h>
+#include <LiquidCrystal_SR3W.h>
 
+#define STROBE 12
+#define DATA 11
+#define CLOCK 10
 
-const int PIN_LCD_STROBE         =  12;  // Out: LCD IC4094 shift-register strobe
-const int PIN_LCD_DATA           =  11;  // Out: LCD IC4094 shift-register data
-const int PIN_LCD_CLOCK          =  10;  // Out: LCD IC4094 shift-register clock
-const int PIN_LCD_BACKLIGHT      =  5;  // Out: LCD backlight (PWM)
+LiquidCrystal_SR3W lcd(DATA, CLOCK, STROBE, 3, 2, 1, 7, 6, 5, 4);
+
+LCD *screen = &lcd;
+
 
 const int analogInPin1 = A0;  // Analog input pin that the potentiometer is attached to
-//const int analogInPin2 = A1;  // Analog input pin that the potentiometer is attached to
 
 int sensorValue=0;        // value read from the pot
 
 int reachLeft = 0;
 int reachRight = 0;
 
-
-
-// srdata / srclock / strobe
-LiquidCrystal_SR_LCD3 lcd(PIN_LCD_DATA, PIN_LCD_CLOCK, PIN_LCD_STROBE);
 
 byte bar[8] = {
   0b11111, 0b11111, 0b11111, 0b11111, 0b11111, 0b11111, 0b11111, 0b00000
@@ -77,7 +75,8 @@ int memBarlines = 0;
 int memEmptybarlines = 20;
 
 
-float PercToBar(){
+float PercToBar()
+{
 
   char floatbuf[32];
   cpuTotal.toCharArray(floatbuf, sizeof(floatbuf));
@@ -97,8 +96,8 @@ float PercToBar(){
   //Serial.println(barlines);
   //Serial.println(emptybarlines);
 
-  //lcd.setCursor(6, 1);
-  //lcd.print(char(0));
+  //screen->setCursor(6, 1);
+  //screen->print(char(0));
 
 }
 
@@ -201,214 +200,214 @@ void DisplayData()
   //             PAGE 0             //
   if (page == 0) {
     if (lastPage != 0){
-      lcd.clear();
+      screen->clear();
     }
     lastPage = 0;
-    lcd.home (); // go home
-    lcd.print(F(" TurBo Monitor 3000  RealTime CPU & MEM "));
-    lcd.setCursor (0, 2);
-    lcd.print(F(" 2014                     Display       "));
-    lcd.setCursor(38,1);
-    lcd.print(F("P1"));
+    screen->home (); // go home
+    screen->print(F(" TurBo Monitor 3000  RealTime CPU & MEM "));
+    screen->setCursor (0, 2);
+    screen->print(F(" 2014                     Display       "));
+    screen->setCursor(38,1);
+    screen->print(F("P1"));
   }
   //             PAGE 1             //
   else if (page == 1) {
     if (lastPage != 1){
-      lcd.clear();
+      screen->clear();
     }
     lastPage = 1;
 
-    lcd.home (); // go home
-    lcd.print(F("CORES:"));
-    lcd.setCursor (6, 0);
-    lcd.print(core);
+    screen->home (); // go home
+    screen->print(F("CORES:"));
+    screen->setCursor (6, 0);
+    screen->print(core);
 
-    lcd.setCursor(8, 0);
-    lcd.print(F("C1:"));
-    lcd.setCursor (11, 0);
-    lcd.print(cpu[0]);
+    screen->setCursor(8, 0);
+    screen->print(F("C1:"));
+    screen->setCursor (11, 0);
+    screen->print(cpu[0]);
 
-    lcd.setCursor(16, 0);
-    lcd.print(F("C2:"));
-    lcd.setCursor (19, 0);
-    lcd.print(cpu[1]); 
+    screen->setCursor(16, 0);
+    screen->print(F("C2:"));
+    screen->setCursor (19, 0);
+    screen->print(cpu[1]); 
 
-    lcd.setCursor(24, 0);
-    lcd.print(F("C3:"));
-    lcd.setCursor (27, 0);
-    lcd.print(cpu[2]);
+    screen->setCursor(24, 0);
+    screen->print(F("C3:"));
+    screen->setCursor (27, 0);
+    screen->print(cpu[2]);
 
-    lcd.setCursor(32, 0);
-    lcd.print(F("C4:"));
-    lcd.setCursor (35, 0);
-    lcd.print(cpu[3]);
+    screen->setCursor(32, 0);
+    screen->print(F("C4:"));
+    screen->setCursor (35, 0);
+    screen->print(cpu[3]);
 
-    lcd.setCursor(0, 1);
-    lcd.print(F("USAGE:"));
-    lcd.setCursor(6, 1);
-    lcd.print(cpuTotal);
+    screen->setCursor(0, 1);
+    screen->print(F("USAGE:"));
+    screen->setCursor(6, 1);
+    screen->print(cpuTotal);
 
-    lcd.setCursor(12, 1);
-    lcd.print(F("|"));
-    lcd.setCursor(33, 1);
-    lcd.print(F("|"));
+    screen->setCursor(12, 1);
+    screen->print(F("|"));
+    screen->setCursor(33, 1);
+    screen->print(F("|"));
 
     int j = 0;
     for (int i = 0; i < cpuBarlines; i ++){
-      lcd.setCursor(i+13,1);
-      lcd.print(char(0));
+      screen->setCursor(i+13,1);
+      screen->print(char(0));
       j ++;
     }
     for ( int k = 0; k < cpuEmptybarlines; k ++){
-      lcd.setCursor(k+j+13,1);
-      lcd.print(char(1));
+      screen->setCursor(k+j+13,1);
+      screen->print(char(1));
     }
 
-    lcd.setCursor(38,1);
-    lcd.print(F("P2"));
+    screen->setCursor(38,1);
+    screen->print(F("P2"));
   }
   //             PAGE 2             //
   else if (page == 2){
     if (lastPage != 2){
-      lcd.clear();
+      screen->clear();
       lastPage = 2;
     }
 
 
-    lcd.setCursor(0, 0);
-    lcd.print(F("MEMTOTAL:"));
-    lcd.setCursor (9, 0);
-    lcd.print(memTotal);
+    screen->setCursor(0, 0);
+    screen->print(F("MEMTOTAL:"));
+    screen->setCursor (9, 0);
+    screen->print(memTotal);
 
-    lcd.setCursor(20, 0);
-    lcd.print(F("MEMAVAIL:"));
-    lcd.setCursor (29, 0);
-    lcd.print(memAvailable);
+    screen->setCursor(20, 0);
+    screen->print(F("MEMAVAIL:"));
+    screen->setCursor (29, 0);
+    screen->print(memAvailable);
 
-    lcd.setCursor(0, 1);
-    lcd.print(F("MEM:"));
-    lcd.setCursor (4, 1);
-    lcd.print(mem);
+    screen->setCursor(0, 1);
+    screen->print(F("MEM:"));
+    screen->setCursor (4, 1);
+    screen->print(mem);
 
-    lcd.setCursor(12, 1);
-    lcd.print(F("|"));
-    lcd.setCursor(33, 1);
-    lcd.print(F("|"));
+    screen->setCursor(12, 1);
+    screen->print(F("|"));
+    screen->setCursor(33, 1);
+    screen->print(F("|"));
 
     int j = 0;
     for (int i = 0; i < memBarlines; i ++){
-      lcd.setCursor(i+13,1);
-      lcd.print(char(0));
+      screen->setCursor(i+13,1);
+      screen->print(char(0));
       j ++;
     }
     for ( int k = 0; k < memEmptybarlines; k ++){
-      lcd.setCursor(k+j+13,1);
-      lcd.print(char(1));
+      screen->setCursor(k+j+13,1);
+      screen->print(char(1));
     }
 
-    lcd.setCursor(38,1);
-    lcd.print(F("P3"));
+    screen->setCursor(38,1);
+    screen->print(F("P3"));
   }
   //             PAGE 3             //
   else if (page == 3){
     if (lastPage != 3){
-      lcd.clear();
+      screen->clear();
       lastPage = 3;
     }
-    lcd.setCursor(0,0);
+    screen->setCursor(0,0);
 
-    lcd.setCursor(0, 0);
-    lcd.print(F("DISK:"));
-    lcd.setCursor (5, 0);
-    lcd.print(disk);
+    screen->setCursor(0, 0);
+    screen->print(F("DISK:"));
+    screen->setCursor (5, 0);
+    screen->print(disk);
 
-    lcd.setCursor(38,1);
-    lcd.print(F("P4"));
+    screen->setCursor(38,1);
+    screen->print(F("P4"));
   }
   //             PAGE 4             //
   else if (page == 4){
     if (lastPage != 4){
-      lcd.clear();
+      screen->clear();
       lastPage = 4;
     }
-    lcd.setCursor(0,0);
+    screen->setCursor(0,0);
 
-    lcd.setCursor(0, 0);
-    lcd.print(F("NETUP:"));
-    lcd.setCursor (6, 0);
-    lcd.print(netup);
+    screen->setCursor(0, 0);
+    screen->print(F("NETUP:"));
+    screen->setCursor (6, 0);
+    screen->print(netup);
 
-    lcd.setCursor(0, 1);
-    lcd.print(F("NETDW:"));
-    lcd.setCursor (6, 1);
-    lcd.print(netdw);
+    screen->setCursor(0, 1);
+    screen->print(F("NETDW:"));
+    screen->setCursor (6, 1);
+    screen->print(netdw);
     
-    lcd.setCursor(38,1);
-    lcd.print(F("P5"));
+    screen->setCursor(38,1);
+    screen->print(F("P5"));
   }
   //             PAGE 5             //
   else if (page == 5){
     if (lastPage != 5){
-      lcd.clear();
+      screen->clear();
       lastPage = 5;
     }
-    lcd.setCursor(0,0);
+    screen->setCursor(0,0);
 
-    lcd.setCursor(0, 0);
-    lcd.print(F("TEMP"));
+    screen->setCursor(0, 0);
+    screen->print(F("TEMP"));
 
-    lcd.setCursor(5,0);
-    lcd.print(F("CPU:"));
+    screen->setCursor(5,0);
+    screen->print(F("CPU:"));
 
-    lcd.setCursor(9,0);
-    lcd.print(cpuTemp);
+    screen->setCursor(9,0);
+    screen->print(cpuTemp);
 
-    lcd.setCursor(14,0);
-    lcd.print(F("MB:"));
+    screen->setCursor(14,0);
+    screen->print(F("MB:"));
 
-    lcd.setCursor(17,0);
-    lcd.print(mbTemp);
+    screen->setCursor(17,0);
+    screen->print(mbTemp);
 
-    lcd.setCursor(22,0);
-    lcd.print(F("GPU:"));
+    screen->setCursor(22,0);
+    screen->print(F("GPU:"));
 
-    lcd.setCursor(26,0);
-    lcd.print(gpuTemp);
+    screen->setCursor(26,0);
+    screen->print(gpuTemp);
 
-    lcd.setCursor(31,0);
-    lcd.print(F("FAN:"));
+    screen->setCursor(31,0);
+    screen->print(F("FAN:"));
 
-    lcd.setCursor(35,0);
-    lcd.print(cpuFan);
-
-
-    lcd.setCursor(0,1);
-    lcd.print(F("1V:"));
-
-    lcd.setCursor(3,1);
-    lcd.print(_1v);
-
-    lcd.setCursor(9,1);
-    lcd.print(F("3V:"));
-
-    lcd.setCursor(12,1);
-    lcd.print(_3v);
-
-    lcd.setCursor(18,1);
-    lcd.print(F("5V:"));
-
-    lcd.setCursor(21,1);
-    lcd.print(_5v);
-
-    lcd.setCursor(27,1);
-    lcd.print(F("12V:"));
-
-    lcd.setCursor(31,1);
-    lcd.print(_12v);
+    screen->setCursor(35,0);
+    screen->print(cpuFan);
 
 
-    lcd.setCursor(38,1);
-    lcd.print(F("P6"));
+    screen->setCursor(0,1);
+    screen->print(F("1V:"));
+
+    screen->setCursor(3,1);
+    screen->print(_1v);
+
+    screen->setCursor(9,1);
+    screen->print(F("3V:"));
+
+    screen->setCursor(12,1);
+    screen->print(_3v);
+
+    screen->setCursor(18,1);
+    screen->print(F("5V:"));
+
+    screen->setCursor(21,1);
+    screen->print(_5v);
+
+    screen->setCursor(27,1);
+    screen->print(F("12V:"));
+
+    screen->setCursor(31,1);
+    screen->print(_12v);
+
+
+    screen->setCursor(38,1);
+    screen->print(F("P6"));
   }
 }
 
@@ -467,7 +466,7 @@ void CheckEncoder(){
 
 void setup()
 {
-  lcd.begin (40,2);
+  screen->begin (40,2);
 
   Serial.begin(9600);
 
@@ -505,28 +504,30 @@ void setup()
   //attachInterrupt(0, updateEncoder, CHANGE); 
   //attachInterrupt(1, updateEncoder, CHANGE);
 
-  lcd.createChar(0, bar);
-  lcd.createChar(1, emptybar);
+  screen->createChar(0, bar);
+  screen->createChar(1, emptybar);
 
   // Switch on the backlight
-  /*lcd.home (); // go home
-  lcd.print(F(" TurBo Monitor 3000  RealTime CPU & MEM "));
-  lcd.setCursor (0, 2);
-  lcd.print(F(" 2014                     Display       "));*/
-  lcd.clear();
+  screen->clear();
+  screen->home (); // go home
+  screen->print(" TurBo Monitor 3000  RealTime CPU & MEM ");
+  screen->setCursor (0, 2);
+  screen->print(" 2014                     Display       ");
+  delay(1000);
+  //screen->clear();
   
 }
 
 void loop()
 {
-  //CheckEncoder();
-  CheckDir();
-  StoreData();
-  PercToBar();
-  DisplayData();
+  //CheckDir();
+  //StoreData();
+  //PercToBar();
+  //DisplayData();
 }
 
-void serialEvent() {
+void serialEvent()
+{
   while (Serial.available()) {
     // get the new byte:
     char inChar = (char)Serial.read(); 
@@ -542,18 +543,3 @@ void serialEvent() {
     // so the main loop can do something about it:
   }
 }
-
-/*void updateEncoder(){
- int MSB = digitalRead(encoderPin1); //MSB = most significant bit
- int LSB = digitalRead(encoderPin2); //LSB = least significant bit
- 
- int encoded = (MSB << 1) |LSB; //converting the 2 pin value to single number
- int sum  = (lastEncoded << 2) | encoded; //adding it to the previous encoded value
- 
- if(sum == 0b1101 || sum == 0b0100 || sum == 0b0010 || sum == 0b1011) encoderValue ++;
- if(sum == 0b1110 || sum == 0b0111 || sum == 0b0001 || sum == 0b1000) encoderValue --;
- 
- lastEncoded = encoded; //store this value for next time
- }*/
-
-
