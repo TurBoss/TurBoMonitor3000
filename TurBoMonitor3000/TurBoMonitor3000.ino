@@ -30,17 +30,10 @@ byte emptybar[8] = {
 String inputString = "";         // a string to hold incoming data
 boolean stringComplete = false;  // whether the string is complete
 
-//these pins can not be changed 2/3 are special pins
-//int encoderPin1 = 2;
-//int encoderPin2 = 3;
 
 volatile int lastEncoded = 0;
 volatile long encoderValue = 0;
 
-//long lastencoderValue = 0;
-
-//int lastMSB = 0;
-//int lastLSB = 0;
 
 String cpuTotal;
 String cpu[16];
@@ -493,13 +486,13 @@ void setup()
   screen->setCursor (0, 2);
   screen->print(" 2014                     Display       ");
   delay(1000);
-  //screen->clear();
+  screen->clear();
   
 }
 
 void loop()
 {
-  //CheckDir();
+  CheckDir();
   StoreData();
   PercToBar();
   DisplayData();
