@@ -1,12 +1,6 @@
-#include <Wire.h>
-#include <LCD.h>
-#include <LiquidCrystal_SR3W.h>
+#include <LiquidCrystal_SR_LCD3.h>
 
-#define STROBE 12
-#define DATA 11
-#define CLOCK 10
-
-LiquidCrystal_SR3W lcd(DATA, CLOCK, STROBE, 3, 2, 1, 7, 6, 5, 4);
+LiquidCrystal_SR_LCD3 lcd(11, 10, 12);
 
 LCD *screen = &lcd;
 
@@ -199,7 +193,7 @@ void DisplayData()
     screen->home (); // go home
     screen->print(F(" TurBo Monitor 3000  RealTime CPU & MEM "));
     screen->setCursor (0, 2);
-    screen->print(F(" 2014                     Display       "));
+    screen->print(F(" 2014 - 2018              Display       "));
     screen->setCursor(38,1);
     screen->print(F("P1"));
   }
