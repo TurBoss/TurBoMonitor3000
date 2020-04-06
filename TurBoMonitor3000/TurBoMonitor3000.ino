@@ -45,83 +45,128 @@ void loop()
     tft.setCursor (0, 0);
     
     if (!status) {
+      tft.setTextColor(ILI9341_YELLOW, ILI9341_BLACK);
       tft.print("Cores: ");
+      tft.setTextColor(ILI9341_WHITE, ILI9341_BLACK);
       tft.print(cpu_status.cores);
       tft.println("    ");
+      tft.println("");
       
+      tft.setTextColor(ILI9341_YELLOW, ILI9341_BLACK);
       tft.print("Total: ");
+      tft.setTextColor(ILI9341_WHITE, ILI9341_BLACK);
       tft.print(cpu_status.cpuTotal);
       tft.println("    ");
+      tft.println("");
       
+      tft.setTextColor(ILI9341_YELLOW, ILI9341_BLACK);
       tft.print("Core 00: ");
+      tft.setTextColor(ILI9341_WHITE, ILI9341_BLACK);
       tft.print(cpu_status.core0);
       tft.println("    ");
       
+      tft.setTextColor(ILI9341_YELLOW, ILI9341_BLACK);
       tft.print("Core 01: ");
+      tft.setTextColor(ILI9341_WHITE, ILI9341_BLACK);
       tft.print(cpu_status.core1);
       tft.println("    ");
       
+      tft.setTextColor(ILI9341_YELLOW, ILI9341_BLACK);
       tft.print("Core 02: ");
+      tft.setTextColor(ILI9341_WHITE, ILI9341_BLACK);
       tft.print(cpu_status.core2);
       tft.println("    ");
       
+      tft.setTextColor(ILI9341_YELLOW, ILI9341_BLACK);
       tft.print("Core 03: ");
+      tft.setTextColor(ILI9341_WHITE, ILI9341_BLACK);
       tft.print(cpu_status.core3);
       tft.println("    ");
       
+      tft.setTextColor(ILI9341_YELLOW, ILI9341_BLACK);
       tft.print("Core 04: ");
+      tft.setTextColor(ILI9341_WHITE, ILI9341_BLACK);
       tft.print(cpu_status.core4);
       tft.println("    ");
       
+      tft.setTextColor(ILI9341_YELLOW, ILI9341_BLACK);
       tft.print("Core 05: ");
+      tft.setTextColor(ILI9341_WHITE, ILI9341_BLACK);
       tft.print(cpu_status.core5);
       tft.println("    ");
       
+      tft.setTextColor(ILI9341_YELLOW, ILI9341_BLACK);
       tft.print("Core 06: ");
+      tft.setTextColor(ILI9341_WHITE, ILI9341_BLACK);
       tft.print(cpu_status.core6);
       tft.println("    ");
       
+      tft.setTextColor(ILI9341_YELLOW, ILI9341_BLACK);
       tft.print("Core 07: ");
+      tft.setTextColor(ILI9341_WHITE, ILI9341_BLACK);
       tft.print(cpu_status.core7);
       tft.println("    ");
       
+      tft.setTextColor(ILI9341_YELLOW, ILI9341_BLACK);
       tft.print("Core 08: ");
+      tft.setTextColor(ILI9341_WHITE, ILI9341_BLACK);
       tft.print(cpu_status.core8);
       tft.println("    ");
       
+      tft.setTextColor(ILI9341_YELLOW, ILI9341_BLACK);
       tft.print("Core 09: ");
+      tft.setTextColor(ILI9341_WHITE, ILI9341_BLACK);
       tft.print(cpu_status.core9);
       tft.println("    ");
       
+      tft.setTextColor(ILI9341_YELLOW, ILI9341_BLACK);
       tft.print("Core 10: ");
+      tft.setTextColor(ILI9341_WHITE, ILI9341_BLACK);
       tft.print(cpu_status.core10);
       tft.println("    ");
       
+      tft.setTextColor(ILI9341_YELLOW, ILI9341_BLACK);
       tft.print("Core 11: ");
+      tft.setTextColor(ILI9341_WHITE, ILI9341_BLACK);
       tft.print(cpu_status.core11);
       tft.println("    ");
+      tft.println("");
       
+      tft.setTextColor(ILI9341_YELLOW, ILI9341_BLACK);
       tft.print("RAM Memory: ");
+      tft.setTextColor(ILI9341_WHITE, ILI9341_BLACK);
       tft.print(cpu_status.mem_percent);
       tft.println("    ");
       
+      tft.setTextColor(ILI9341_YELLOW, ILI9341_BLACK);
       tft.print("RAM Total: ");
+      tft.setTextColor(ILI9341_WHITE, ILI9341_BLACK);
       tft.print(cpu_status.mem_total);
       tft.println("    ");
       
+      tft.setTextColor(ILI9341_YELLOW, ILI9341_BLACK);
       tft.print("RAM Available: ");
+      tft.setTextColor(ILI9341_WHITE, ILI9341_BLACK);
       tft.print(cpu_status.mem_available);
       tft.println("    ");
+      tft.println("");
       
+      tft.setTextColor(ILI9341_YELLOW, ILI9341_BLACK);
       tft.print("Disk: ");
+      tft.setTextColor(ILI9341_WHITE, ILI9341_BLACK);
       tft.print(cpu_status.disk_percent);
       tft.println("    ");
+      tft.println("");
       
+      tft.setTextColor(ILI9341_YELLOW, ILI9341_BLACK);
       tft.print("Network UP: ");
+      tft.setTextColor(ILI9341_WHITE, ILI9341_BLACK);
       tft.print(cpu_status.net_up);
       tft.println("    ");
       
+      tft.setTextColor(ILI9341_YELLOW, ILI9341_BLACK);
       tft.print("Network DOWN: ");
+      tft.setTextColor(ILI9341_WHITE, ILI9341_BLACK);
       tft.print(cpu_status.net_dw);
       tft.println("    ");
     }
