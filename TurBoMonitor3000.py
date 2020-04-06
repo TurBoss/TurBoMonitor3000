@@ -15,9 +15,8 @@ os.nice(0)
 class Monitor:
     def __init__(self):
         """Initialize"""
-        print("Initialize")
 
-        self.metrics = status_pb2.CpuStatus()
+        self.status = status_pb2.CpuStatus()
         sensors.init()
 
         self.ser = serial.Serial()
@@ -76,32 +75,32 @@ class Monitor:
     def send(self):
         """Send Data"""
 
-        self.metrics.cores = int(self.cores)
+        self.status.cores = int(self.cores)
 
-        self.metrics.cpuTotal = float(self.cpuTotal)
+        self.status.cpuTotal = float(self.cpuTotal)
 
-        self.metrics.core0 = float(self.cpu[0])
-        self.metrics.core1 = float(self.cpu[1])
-        self.metrics.core2 = float(self.cpu[2])
-        self.metrics.core3 = float(self.cpu[3])
-        self.metrics.core4 = float(self.cpu[4])
-        self.metrics.core5 = float(self.cpu[5])
-        self.metrics.core6 = float(self.cpu[6])
-        self.metrics.core7 = float(self.cpu[7])
-        self.metrics.core8 = float(self.cpu[8])
-        self.metrics.core9 = float(self.cpu[9])
-        self.metrics.core10 = float(self.cpu[10])
-        self.metrics.core11 = float(self.cpu[11])
+        self.status.core0 = float(self.cpu[0])
+        self.status.core1 = float(self.cpu[1])
+        self.status.core2 = float(self.cpu[2])
+        self.status.core3 = float(self.cpu[3])
+        self.status.core4 = float(self.cpu[4])
+        self.status.core5 = float(self.cpu[5])
+        self.status.core6 = float(self.cpu[6])
+        self.status.core7 = float(self.cpu[7])
+        self.status.core8 = float(self.cpu[8])
+        self.status.core9 = float(self.cpu[9])
+        self.status.core10 = float(self.cpu[10])
+        self.status.core11 = float(self.cpu[11])
 
-        self.metrics.mem_percent = self.mem.percent
-        self.metrics.mem_total = self.mem.total/1000000
-        self.metrics.mem_available = self.mem.available/1000000
-        self.metrics.disk_percent = self.disk.percent
-        self.metrics.net_up = self.netup/1000
-        self.metrics.net_dw = self.netdw/1000
+        self.status.mem_percent = self.mem.percent
+        self.status.mem_total = self.mem.total / 1000000
+        self.status.mem_available = self.mem.available / 1000000
+        self.status.disk_percent = self.disk.percent
+        self.status.net_up = self.netup / 1000
+        self.status.net_dw = self.netdw / 1000
 
         # print(self.metrics.SerializeToString())
-        self.ser.write(self.metrics.SerializeToString())
+        self.ser.write(self.status.SerializeToString())
 
 
 def main():
@@ -110,7 +109,7 @@ def main():
     while True:
         monitor.update()
         monitor.send()
-        sleep(0.1)
+        sleep(0.5)
 
 
 if __name__ == '__main__':

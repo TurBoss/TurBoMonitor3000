@@ -46,64 +46,84 @@ void loop()
     
     if (!status) {
       tft.print("Cores: ");
-      tft.println(cpu_status.cores);
+      tft.print(cpu_status.cores);
+      tft.println("    ");
       
       tft.print("Total: ");
-      tft.println(cpu_status.cpuTotal);
+      tft.print(cpu_status.cpuTotal);
+      tft.println("    ");
       
       tft.print("Core 00: ");
-      tft.println(cpu_status.core0);
+      tft.print(cpu_status.core0);
+      tft.println("    ");
       
       tft.print("Core 01: ");
-      tft.println(cpu_status.core1);
+      tft.print(cpu_status.core1);
+      tft.println("    ");
       
       tft.print("Core 02: ");
-      tft.println(cpu_status.core2);
+      tft.print(cpu_status.core2);
+      tft.println("    ");
       
       tft.print("Core 03: ");
-      tft.println(cpu_status.core3);
+      tft.print(cpu_status.core3);
+      tft.println("    ");
       
       tft.print("Core 04: ");
-      tft.println(cpu_status.core4);
+      tft.print(cpu_status.core4);
+      tft.println("    ");
       
       tft.print("Core 05: ");
-      tft.println(cpu_status.core5);
+      tft.print(cpu_status.core5);
+      tft.println("    ");
       
       tft.print("Core 06: ");
-      tft.println(cpu_status.core6);
+      tft.print(cpu_status.core6);
+      tft.println("    ");
       
       tft.print("Core 07: ");
-      tft.println(cpu_status.core7);
+      tft.print(cpu_status.core7);
+      tft.println("    ");
       
       tft.print("Core 08: ");
-      tft.println(cpu_status.core8);
+      tft.print(cpu_status.core8);
+      tft.println("    ");
       
       tft.print("Core 09: ");
-      tft.println(cpu_status.core9);
+      tft.print(cpu_status.core9);
+      tft.println("    ");
       
       tft.print("Core 10: ");
-      tft.println(cpu_status.core10);
+      tft.print(cpu_status.core10);
+      tft.println("    ");
       
       tft.print("Core 11: ");
-      tft.println(cpu_status.core11);
+      tft.print(cpu_status.core11);
+      tft.println("    ");
       
       tft.print("RAM Memory: ");
-      tft.println(cpu_status.mem_percent);
+      tft.print(cpu_status.mem_percent);
+      tft.println("    ");
       
       tft.print("RAM Total: ");
-      tft.println(cpu_status.mem_total);
+      tft.print(cpu_status.mem_total);
+      tft.println("    ");
       
       tft.print("RAM Available: ");
-      tft.println(cpu_status.mem_available);
+      tft.print(cpu_status.mem_available);
+      tft.println("    ");
       
       tft.print("Disk: ");
-      tft.println(cpu_status.disk_percent);
+      tft.print(cpu_status.disk_percent);
+      tft.println("    ");
       
       tft.print("Network UP: ");
-      tft.println(cpu_status.net_up);
+      tft.print(cpu_status.net_up);
+      tft.println("    ");
       
       tft.print("Network DOWN: ");
-      tft.println(cpu_status.net_dw);
+      tft.print(cpu_status.net_dw);
+      tft.println("    ");
     }
     else {
       tft.print("ERROR");
