@@ -1,7 +1,7 @@
 import os
 
 import psutil
-import serial
+import socket
 from time import sleep
 
 import status_pb2
@@ -19,14 +19,12 @@ class Monitor:
         self.status = status_pb2.CpuStatus()
         sensors.init()
 
-        self.ser = serial.Serial()
-        self.ser.baudrate = 9600
-        self.ser.port = PORT
+        self.host = '192.168.10.140'
+        self.port = 1337
 
-        try:
-            self.ser.open()
-        except Exception as e:
-            print("no serial port {}".format(e))
+        self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.sock.settimeout(0.5)
+        self.sock.connect((self.host, self.port))
 
         self.chips = [[0 for feature in chip] for chip in sensors.iter_detected_chips()]
 
@@ -47,13 +45,17 @@ class Monitor:
 
     def update(self):
         """Update Data"""
-        i = 0
+
         for chip in sensors.iter_detected_chips():
-            j = 0
+            print('%s at %s' % (chip, chip.adapter_name))
             for feature in chip:
-                self.chips[i][j] = feature.get_value()
-                j += 1
-            i += 1
+                print('  %s: %.2f' % (feature.label, feature.get_value()))
+
+        # for i, chip in enumerate(sensors.iter_detected_chips()):
+        #     print('%s at %s' % (chip, chip.adapter_name))
+        #     for j, feature in enumerate(chip):
+        #         print('  %s: %.2f' % (feature.label, feature.get_value()))
+        #         self.chips[i][j] = feature.get_value()
 
         self.cpuTotal = psutil.cpu_percent()
         self.cpu = psutil.cpu_percent(percpu=True)
@@ -99,8 +101,14 @@ class Monitor:
         self.status.net_up = self.netup / 1000
         self.status.net_dw = self.netdw / 1000
 
-        # print(self.metrics.SerializeToString())
-        self.ser.write(self.status.SerializeToString())
+        msg = self.status.SerializeToString()
+        self.sock.sendall(msg)
+
+        try:
+            data = self.sock.recv(1024)
+            print(data)
+        except socket.timeout as e:
+            print(e)
 
 
 def main():
@@ -109,7 +117,7 @@ def main():
     while True:
         monitor.update()
         monitor.send()
-        sleep(0.5)
+        sleep(3)
 
 
 if __name__ == '__main__':
