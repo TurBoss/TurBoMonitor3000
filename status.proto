@@ -1,0 +1,26 @@
+syntax = "proto2";
+
+message CpuStatus {
+   required int32 cores = 1;
+   required float cpuTotal = 2;
+
+   required float core0 = 3;
+   required float core1 = 4;
+   required float core2 = 5;
+   required float core3 = 6;
+   required float core4 = 7;
+   required float core5 = 8;
+   required float core6 = 9;
+   required float core7 = 10;
+   required float core8 = 11;
+   required float core9 = 12;
+   required float core10 = 13;
+   required float core11 = 14;
+
+  required float mem_percent = 15;
+  required float mem_total = 16;
+  required float mem_available = 17;
+  required float disk_percent = 18;
+  required float net_up = 19;
+  required float net_dw = 20;
+}
